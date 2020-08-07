@@ -47,6 +47,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         vertical-align: baseline;
     }
+    
     button, input {
         padding: 0;
         border: none;

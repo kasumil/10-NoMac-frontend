@@ -1,15 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Test from "./Pages/test.js";
+import Main from "./Pages/Main.js";
+import Review from "./Pages/Review.js";
+import Footer from "./Components/Footer.js";
 
-function Routes() {
+const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/main" component={Test} />
+        <Route exact path="/main" component={Main} />
+        <Route exact path="/review" component={Review} />
       </Switch>
+      <Footer />
     </Router>
   );
-}
+};
 
 export default Routes;
