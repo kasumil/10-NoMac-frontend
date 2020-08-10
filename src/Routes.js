@@ -7,6 +7,8 @@ import Hotelpage from "./Pages/Components/Hotelpage";
 import Main from "./Pages/Main.js";
 import Review from "./Pages/Review.js";
 import Footer from "./Components/Footer";
+import DetailListPage from "./Pages/DetailListPage";
+import GoogleMap from "./Components/DetailComponents/GoogleMap";
 
 const Routes = () => {
   return (
@@ -18,6 +20,8 @@ const Routes = () => {
         <Route exact path="/emailLogin" component={EmailLogin} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/hotelpage" component={Hotelpage} />
+        <Route exact path="/list" component={DetailListPage} />
+        <Route exact path="/map" component={GoogleMap} />
       </Switch>
       <Footer />
     </Router>
