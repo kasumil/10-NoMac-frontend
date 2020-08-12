@@ -1,0 +1,60 @@
+export const detailData = {
+  categoryText: [
+    { index: 0, name: "하와이 섬" },
+    { index: 1, name: "호텔" },
+    { index: 2, name: "즐길거리" },
+    { index: 3, name: "음식점" },
+    { index: 4, name: "항공권" },
+    { index: 5, name: "쇼핑" },
+    { index: 6, name: "항공+호텔 패키지" },
+    { index: 7, name: "크루즈" },
+    { index: 8, name: "렌터카" },
+  ],
+  specialPrice: [
+    { index: 0, name: "무료 취소" },
+    { index: 1, name: "지금 예약하고 숙박할 때 결제하기" },
+    { index: 2, name: "스페셜 프로모션을 제공하는 시설" },
+  ],
+  popular: [
+    { index: 0, name: "수영장", number: 15 },
+    { index: 1, name: "별점5 이상", number: 111 },
+    { index: 2, name: "4성급", number: 34 },
+    { index: 3, name: "조식 포함", number: 6 },
+  ],
+  facility: [
+    { index: 0, name: "무료 인터넷", number: 138 },
+    { index: 1, name: "하이킹", number: 6 },
+    { index: 2, name: "풀", number: 15 },
+    { index: 3, name: "무료 주차", number: 4 },
+  ],
+  type: [
+    { index: 0, name: "모텔 / 비엔비", number: 32, typeClass: "asideItem" },
+    { index: 1, name: "리조트", number: 18, typeClass: "asideItem" },
+    { index: 2, name: "호텔", number: 9, typeClass: "asideItem" },
+    { index: 3, name: "콘도", number: 7, typeClass: "asideItem" },
+  ],
+  hotelGrade: [
+    { index: 0, name: "5성급", number: 2 },
+    { index: 1, name: "4성급", number: 10 },
+    { index: 2, name: "3성급", number: 23 },
+    { index: 3, name: "2성급", number: 19 },
+  ],
+  style: [
+    { index: 0, name: "저렴한", number: 15, className: "asideItem" },
+    { index: 1, name: "중간급", number: 20, className: "asideItem" },
+    { index: 2, name: "럭셔리", number: 9, className: "asideItem" },
+    { index: 3, name: "가족여행에 적합", number: 20, className: "asideItem" },
+  ],
+  hotelBrand: [
+    { index: 0, name: "힐튼 호텔", number: 5 },
+    { index: 1, name: "애스톤", number: 3 },
+    { index: 2, name: "정원", number: 1 },
+    { index: 3, name: "아쿠아", number: 1 },
+  ],
+  filter: [
+    { index: 0, number: 1, name: "모두 보기" },
+    { index: 1, number: 4, name: "호텔 평점 : 4.5~5점" },
+    { index: 2, number: 3, name: "호텔 평점 : 3.5~4점" },
+    { index: 3, number: 2, name: "호텔 평점 : 1~3점" },
+  ],
+};
