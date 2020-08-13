@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter, Link } from "react-router-dom";
 import styled from "styled-components";
 
 const BtnMenu = () => {
@@ -21,16 +22,18 @@ const BtnMenu = () => {
           <span>항공권</span>
           <img alt="plane" src="/images/plane.png" />
         </BtnList>
-        <BtnList>
-          <span>리뷰</span>
-          <img alt="review" src="/images/review.png" />
-        </BtnList>
+        <Link to="/review">
+          <BtnList>
+            <span>리뷰</span>
+            <img alt="review" src="/images/review.png" />
+          </BtnList>
+        </Link>
       </BtnMenuWrap>
     </BtnMenuContainer>
   );
 };
 
-export default BtnMenu;
+export default withRouter(BtnMenu);
 
 const BtnMenuContainer = styled.nav`
   display: flex;
@@ -59,8 +62,15 @@ const BtnList = styled.button`
   justify-content: space-between;
   align-items: center;
 
-  :nth-child(5) {
+  :last-child {
     margin: 0;
+  }
+
+  &:hover {
+    transition: 0.2s linear;
+    background-color: #00aa6c;
+    border: 1px solid #00aa6c;
+    color: white;
   }
 
   span {

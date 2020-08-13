@@ -1,26 +1,48 @@
-import React, { useState } from "react";
-import Modal from "../Components/Modal.js";
-import Slider from "react-slick";
+import React, { useState, useEffect } from "react";
+import { withRouter, Link } from "react-router-dom";
+import Nav from "../Components/Nav";
+import Modal from "../Components/Modal";
 import styled from "styled-components";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const Review = () => {
   const [show, setShow] = useState(false);
+  const [datas, setDatas] = useState([]);
 
-  const onShow = () => {
-    setShow(show === false ? true : false);
+  const handleChangeShow = (id) => {
+    const showData = datas.map((data) => {
+      if (id === data.id) {
+        data.isShow = true;
+      } else {
+        data.isShow = false;
+      }
+      return data;
+    });
+    setDatas(showData);
+    setShow(true);
   };
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-  };
+  useEffect(() => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", localStorage.getItem("kakao-token"));
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    fetch("http://10.58.5.52:8000/review?user=수호", requestOptions)
+      .then((res) => res.json())
+      .then((res) => {
+        const newData = res.review_list.map((data) => {
+          data.isShow = false;
+          return data;
+        });
+        setDatas(newData);
+      });
+  }, []);
 
   return (
     <ReviewBody>
+      <Nav />
       <ReviewContainer>
         <div className="profileWrap">
           <div className="profileInfo">
@@ -30,8 +52,12 @@ const Review = () => {
             />
             <div className="userWrap">
               <p className="userInfo">
-                <span className="userName">서초v서울</span>
-                <span className="userTag">@Roam808172</span>
+                <span className="userName">
+                  {datas.length && datas[0].user}
+                </span>
+                <span className="userTag">
+                  @{datas.length && datas[0].user}
+                </span>
               </p>
               <div className="userDetail">
                 <p className="posting">
@@ -69,6 +95,9 @@ const Review = () => {
           <li className="feedBadgeTab">배지</li>
           <li className="feedMapTab">여행 지도</li>
         </ul>
+        <Link to="/postreview">
+          <PostReviewBtn>리뷰 등록하기</PostReviewBtn>
+        </Link>
       </ReviewContainer>
       <FeedWrap>
         <div className="feedSideMenu">
@@ -76,7 +105,7 @@ const Review = () => {
             <li className="sideTitle">소개</li>
             <li className="sidePlace">
               <img alt="place" src="/images/gpsk.png" />
-              서울, 대한민국
+              하와이, 미국
             </li>
             <li className="sideDate">
               <img alt="date" src="/images/calendar.png" />
@@ -84,60 +113,61 @@ const Review = () => {
             </li>
           </ul>
         </div>
-        <Feeds>
-          <div className="feedHead">
-            <img
-              className="headIcon"
-              alt="userIcon"
-              src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/e3/1f/default-avatar-2020-46.jpg"
-            />
-            <div className="feedInfo">
-              <p>
-                <span>서초v서울</span>님이 리뷰를 작성했습니다.
-              </p>
-              <p>2018년 6월</p>
-            </div>
-          </div>
-          <div className="mainFeed">
-            <Slider {...settings}>
-              <button
-                className="feedImgWrap"
-                onClick={() => setShow(true)}
-                type="button"
-              >
-                <img
-                  className="feedMainImg"
-                  alt="feedImg"
-                  src="/images/feed.jpg"
-                />
-              </button>
-              <button
-                className="feedImgWrap"
-                onClick={() => setShow(true)}
-                type="button"
-              >
-                <img
-                  className="feedMainImg"
-                  alt="feedImg"
-                  src="/images/feed2.jpg"
-                />
-              </button>
-            </Slider>
-            <Modal show={show} setShow={setShow}>
-              <img
-                className="feedMainImg"
-                alt="feedImg"
-                src="/images/feed.jpg"
-              />
-            </Modal>
-          </div>
-        </Feeds>
+        <FeedCardWrap>
+          {datas.length &&
+            datas.map((data, index) => (
+              <Feeds key={index}>
+                <div className="feedHead">
+                  <img
+                    className="headIcon"
+                    alt="userIcon"
+                    src="https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/e3/1f/default-avatar-2020-46.jpg"
+                  />
+                  <div className="feedInfo">
+                    <p>
+                      <span>{datas.length && datas[0].user}</span>님이 리뷰를
+                      작성했습니다.
+                    </p>
+                    <p>2018년 6월</p>
+                  </div>
+                </div>
+                <div className="mainFeed">
+                  <button
+                    className="feedImgWrap"
+                    onClick={() => handleChangeShow(data.id)}
+                    type="button"
+                  >
+                    {data.media.length > 0 ? (
+                      <>
+                        {!data.media[0].includes("mp4") ? (
+                          <img
+                            className="feedMainImg"
+                            alt="successUpload"
+                            src={data.media}
+                          />
+                        ) : (
+                          <video className="feedMainVod" controls name="media">
+                            <source src={data.media} type="video/mp4"></source>
+                          </video>
+                        )}
+                      </>
+                    ) : (
+                      <div className="noImg">
+                        <p>등록된 이미지가 없습니다.</p>
+                      </div>
+                    )}
+                  </button>
+                </div>
+              </Feeds>
+            ))}
+          {show && <Modal setShow={setShow} datas={datas} />}
+        </FeedCardWrap>
       </FeedWrap>
     </ReviewBody>
   );
 };
 
-export default Review;
+export default withRouter(Review);
 
 const ReviewBody = styled.div`
   width: 100%;
@@ -147,8 +177,9 @@ const ReviewBody = styled.div`
 const ReviewContainer = styled.div`
   width: 1280px;
   height: 233px;
-  margin: 0 auto 24px;
+  margin: 24px auto;
   background-color: white;
+  position: relative;
 
   .profileWrap {
     width: 1280px;
@@ -283,6 +314,25 @@ const ReviewContainer = styled.div`
   }
 `;
 
+const PostReviewBtn = styled.button`
+  width: 197px;
+  height: 37px;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  position: absolute;
+  bottom: 24px;
+  right: 48px;
+  font-size: 14px;
+  font-weight: 700;
+
+  &:hover {
+    transition: 0.2s linear;
+    background-color: #00aa6c;
+    border: 1px solid #00aa6c;
+    color: white;
+  }
+`;
+
 const FeedWrap = styled.div`
   width: 1280px;
   margin: 0 auto;
@@ -332,8 +382,17 @@ const FeedWrap = styled.div`
   }
 `;
 
-const Feeds = styled.form`
+const FeedCardWrap = styled.div`
   width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+const Feeds = styled.form`
+  width: 600px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -379,13 +438,49 @@ const Feeds = styled.form`
   }
   .mainFeed {
     width: 100%;
+    height: auto;
     position: relative;
+
+    .feedImgWrap {
+      width: 600px;
+      height: auto;
+      margin-bottom: 60px;
+
+      .feedMainImg {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .feedMainVod {
+        width: 100%;
+        height: auto;
+        object-fit:contain;
+      }
+
+      .noImg {
+        width: 600px;
+        height: 400px;
+        background-color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+          font-size 15px;
+          font-weight: 700;
+          color: white;
+        }
+      }
+    }
 
     .slick-prev,
     .slick-next {
       width: 40px;
       height: 40px;
+      padding-right: 50px;
       line-height: 0;
+      z-index: 9999;
       outline: none;
       cursor: pointer;
 
@@ -396,14 +491,14 @@ const Feeds = styled.form`
     }
 
     .slick-prev {
-      background: url(/images/prev.png) no-repeat;
+      background: url(/images/moprev.png) no-repeat;
       background-size: contain;
       position: absolute;
       left: -80px;
     }
 
     .slick-next {
-      background: url(/images/next.png) no-repeat;
+      background: url(/images/monext.png) no-repeat;
       background-size: contain;
       position: absolute;
       right: -80px;

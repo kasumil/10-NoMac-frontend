@@ -45,6 +45,7 @@ export const mainData = {
       ],
     },
   ],
+
   searchData: [
     {
       id: 1,
@@ -139,5 +140,45 @@ export const mainData = {
       list: ["오너", "비즈니스 플러스", "스폰서 우선배치"],
     },
     { index: 3, menu: "앱 다운로드", list: ["iPhone 앱", "안드로이드 앱"] },
+  ],
+
+  review_list: [
+    {
+      id: 659,
+      user: "Thebrowncow1",
+      hotel: "Club Wyndham Royal Sea Cliff",
+      star: "5.0",
+      title: "빅 아일랜드에서 두 번째",
+      text:
+        "편안하고 조용한 멋진 리조트. 나는 추천하고 부정적인 말을하지 않을 것입니다. 넓은 객실과 도시에서 가깝습니다. 주차 공간이 충분합니다. 그들은 일부 객실을 업데이트하는 중이지만 오래된 객실조차도 여전히 깔끔한 상태입니다. 나는 심장 박동으로 돌아올 것이다.",
+      image:
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/45/20/0c/exterior.jpg?w=100&h=-1&s=1",
+
+      feedimg: "/images/feed01.png",
+    },
+    {
+      id: 667,
+      user: "lindajE7483PA",
+      hotel: "Keauhou Kona Surf & Racquet Club",
+      star: "5.0",
+      title: "사랑스러운 속성",
+      text:
+        "우리는 사랑스럽고 최근에 업데이트 된 타운 하우스에 머물 렀습니다. 관리자는 친절하고 기꺼이했으며 필요한 경우 도움을 줄 수있었습니다. 바다에의 근접성은 우수했다. 그리고 나는 커피를 마시고, 서핑을보고, 운이 좋으면 고래를 걷는 것을 좋아했다.",
+      image:
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-s/01/ba/55/74/picture-of-the-townhouse.jpg?w=100&h=-1&s=1",
+      feedimg: "/images/feed02.png",
+    },
+    {
+      id: 674,
+      user: "멍진",
+      hotel: "코나 코스트 리조트",
+      star: "5.0",
+      title: "가족여행으로 딱",
+      text:
+        "빅아일랜드 여행에 평이 좋길래 선택했습니다. 아이가 어리고 짐이 아주 많아서 1층을 일부러 요청했는데 습한 느낌은 있었습니다. 주방이 기대이상으로 아주 깨끗했습니다. 가성비 매우 좋습니다",
+      image:
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/a5/b0/47/exterior.jpg?w=100&h=-1&s=1",
+      feedimg: "/images/feed03.png",
+    },
   ],
 };

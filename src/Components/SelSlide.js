@@ -1,12 +1,12 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import LikeBtn from "./LikeBtn.js";
+import LikeBtn from "./LikeBtn";
 import Slider from "react-slick";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const SelSlide = ({ data }) => {
+const SelSlide = ({ data: { place, imgUrl, info, menu } }) => {
   const settings = {
     dots: false,
     infinite: false,
@@ -14,8 +14,6 @@ const SelSlide = ({ data }) => {
     slidesToScroll: 3,
     slidesToShow: 3,
   };
-
-  const { place, imgUrl } = data;
 
   const sliderData = place.map((p, index) => {
     return {
@@ -27,8 +25,8 @@ const SelSlide = ({ data }) => {
   return (
     <SlideContainer>
       <div className="slideCaption">
-        <p className="slideTitle">{data.menu}</p>
-        <p className="slideDes">{data.info}</p>
+        <p className="slideTitle">{menu}</p>
+        <p className="slideDes">{info}</p>
         <button className="showMore">모두 보기</button>
       </div>
       <div className="slideWrap">
@@ -36,7 +34,7 @@ const SelSlide = ({ data }) => {
           {sliderData.map((slide, idx) => (
             <div className="slideContents" key={idx}>
               <LikeBtn />
-              <img alt="test" src={slide.imgUrl} />
+              <img alt="selImg" src={slide.imgUrl} />
               <p>
                 <span>{slide.place}</span>
               </p>
@@ -110,6 +108,7 @@ const SlideContainer = styled.div`
       width: 40px;
       height: 40px;
       padding-right: 50px;
+      z-index: 99;
       position: absolute;
       top: 36.5%;
       line-height: 0;
@@ -137,7 +136,6 @@ const SlideContainer = styled.div`
     .slick-list {
       width: 930px;
       overflow: hidden;
-      z-index: -1;
     }
 
     p {

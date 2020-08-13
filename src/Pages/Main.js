@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import Nav from "../Components/Nav.js";
-import BtnMenu from "../Components/BtnMenu.js";
-import SelSlide from "../Components/SelSlide.js";
-import { mainData } from "../MockData/MainData.js";
+import Nav from "../Components/Nav";
+import BtnMenu from "../Components/BtnMenu";
+import SelSlide from "../Components/SelSlide";
+import { mainData } from "../MockData/MainData";
 import styled from "styled-components";
 
 const Main = () => {
@@ -13,7 +13,7 @@ const Main = () => {
   const excludeColumns = ["id", "imgUrl"];
 
   const onToggle = () => {
-    setToggle(toggle === false ? true : false);
+    setToggle(!toggle);
   };
 
   const handleChange = (value) => {
@@ -35,6 +35,10 @@ const Main = () => {
       setData(filteredData);
     }
   };
+
+  useEffect(() => {
+    const localToken = localStorage.getItem("tripadvisor-token");
+  });
 
   return (
     <>
@@ -543,6 +547,7 @@ const IdeaBanner = styled.div`
         color: white;
 
         &:hover {
+          transition: 0.2s linear;
           background-color: #474747;
         }
       }

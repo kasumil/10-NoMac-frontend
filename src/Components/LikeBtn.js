@@ -5,12 +5,12 @@ const LikeBtn = () => {
   const [likes, setLikes] = useState(false);
 
   const pressLike = () => {
-    setLikes(!likes ? true : false);
+    setLikes(!likes);
   };
 
   return (
     <LikeContainer onClick={pressLike}>
-      <div className={likes ? "like" : "dislike"}></div>
+      <LikeBtns backUrl={likes} />
     </LikeContainer>
   );
 };
@@ -26,22 +26,18 @@ const LikeContainer = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  z-index: 9999;
   position: absolute;
   top: 10px;
   right: 20px;
+`;
 
-  div {
-    width: 40px;
-    height: 40px;
-  }
-
-  .like {
-    background: url(/images/fillheart.png) no-repeat center center;
-    background-size: 50%;
-  }
-
-  .dislike {
-    background: url(/images/heart.png) no-repeat center center;
-    background-size: 50%;
-  }
+const LikeBtns = styled.div`
+  width: 40px;
+  height: 40px;
+  background: ${(props) =>
+    props.backUrl
+      ? `url(/images/fillheart.png) no-repeat center center`
+      : `url(/images/heart.png) no-repeat center center`};
+  background-size: 50%;
 `;

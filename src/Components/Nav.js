@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { mainData } from "../MockData/MainData.js";
+import { mainData } from "../MockData/MainData";
 import styled from "styled-components";
 
-const Nav = ({ display, visibility }) => {
+const Nav = ({ display }) => {
   const [toggle, setToggle] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [data, setData] = useState(mainData.searchData);
@@ -19,7 +19,7 @@ const Nav = ({ display, visibility }) => {
 
   const filterData = (value) => {
     const lowercasedValue = value.toLowerCase().trim();
-    if (lowercasedValue === "") {
+    if (!lowercasedValue) {
       setData(mainData.searchData);
     } else {
       const filteredData = mainData.searchData.filter((item) => {
@@ -37,9 +37,7 @@ const Nav = ({ display, visibility }) => {
     const [scroll, setScroll] = useState(0);
 
     const onScroll = () => {
-      setScroll({
-        y: window.scrollY,
-      });
+      setScroll(window.scrollY);
     };
 
     useEffect(() => {
@@ -49,8 +47,6 @@ const Nav = ({ display, visibility }) => {
 
     return scroll;
   };
-
-  const { y } = useScroll();
 
   return (
     <NavContainer>
@@ -66,7 +62,7 @@ const Nav = ({ display, visibility }) => {
         <LogoWrap>
           <img alt="logo" src="/images/logo.png" />
         </LogoWrap>
-        <NavSearchWrap visibility={y > 350 ? 1 : 0}>
+        <NavSearchWrap visibility={useScroll() > 350 ? 1 : 0}>
           <button>
             <img alt="search" src="/images/search.png" />
           </button>
@@ -127,7 +123,7 @@ const NavContainer = styled.nav`
   background-color: white;
   position: sticky;
   top: 0;
-  z-index: 3;
+  z-index: 100;
   display: flex;
 
   .toggleNav {
@@ -318,8 +314,13 @@ const MenuList = styled.li`
   align-items: center;
 
   &:hover {
-    border: 2px solid black;
+    transition: 0.2s linear;
+    background-color: #00aa6c;
     cursor: pointer;
+
+    span {
+      color: white;
+    }
   }
 
   img {
@@ -343,4 +344,9 @@ const LoginBtn = styled.button`
   font-size: 16px;
   font-weight: 900;
   color: white;
+
+  &:hover {
+    transition: 0.2s linear;
+    background-color: #474747;
+  }
 `;
