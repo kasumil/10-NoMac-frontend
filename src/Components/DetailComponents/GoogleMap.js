@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import { hotelListUrl } from "../../Config";
-import { mapApi } from "../../apiKey/mapApi";
+// import { mapApi } from "../../apiKey/mapApi";
 import { detailData } from "../../MockData/DetailData";
 import styled from "styled-components";
 
@@ -155,7 +155,7 @@ const MapAPI = (props) => {
 };
 
 export default GoogleApiWrapper({
-  apiKey: `${mapApi}`,
+  // apiKey: `${mapApi}`,
 })(MapAPI);
 
 const RadioContainer = styled.div`

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import { Apiresource } from "../../Config";
 
+
 function Signup(props, visible) { 
     const [ userInfo, setName ] = useState({email:"",password:"",name:""});
 
@@ -21,25 +22,13 @@ function Signup(props, visible) {
         .then(res => {
             if (res) {
                 alert("회원가입을 환영합니다")
-                props.history.push('/main')
+                props.history.push('/')
             } else {
                 alert('이메일과 비밀번호를 확인해주십시오')
             };
         })
     }
-
-    const returnLogin = (e) => {
-        props.history.push('/EmailLogin')
-    }
-
-    const returnSocialLogin = (e) => {
-        props.history.push('/SocialLogin')
-    }
-
-    const returnMain = (e) => {
-        props.history.push('/Main')
-    }
-
+  
     const isValidEmail = !userInfo.email.length || (userInfo.email.length && userInfo.email.includes("@"));
     
     return(
@@ -89,14 +78,14 @@ function Signup(props, visible) {
                           </div>
                           <div className="passWordFindertitle">
                             이미 계정이 있으신가요?
-                            <span onClick={returnLogin} 
+                            <span onClick={()=>props.setMode("email")} 
                               className="passwordfinder">
                                 로그인
                             </span>
                           </div>
                           <div className="passWordFindertitle">
                             대신 카카오톡이나 Google을 사용하고 싶으세요?
-                            <span onClick={returnSocialLogin} 
+                            <span onClick={()=>props.setMode("social")} 
                               className="passwordfinder">
                                 돌아가기
                             </span>
@@ -116,7 +105,7 @@ function Signup(props, visible) {
                                     이메일 주소로써 유효하지 않거나 저희쪽에서 메일을 발송할 수 없는 문자열을 포함하고있습니다.
                       </div>
                   </div>
-                  <button onClick={returnMain} 
+                  <button onClick={props.closeModal} 
                     className="returnmain" 
                     tabIndex="0">
                      X
@@ -174,7 +163,7 @@ const ModalIner = styled.div`
             display: block;
             color: red;
             background-color: white;
-            font-family:굴림, gulim, sans-serif;
+            font-family: '굴림, gulim, sans-serif';
             font-size: 12px;
             border: 1px solid #e0e0e0;
             box-shadow: 0 2px 12px rgba(0,0,0,.35);
@@ -227,7 +216,7 @@ const SignInput = styled.div`
             display: flex;
             flex-direction: column;
             width: 100%;
-            height: 362px;
+            height: 380px;
             
             .welcome {
                 color : black;
@@ -246,7 +235,7 @@ const SignInput = styled.div`
 
             .email_input {
                 background-color: white;
-                height: 48px;
+                height: 50px;
                 margin: 8px 0 16px;
                 padding : 4px 4px 4px 8px;
                 border: 2px solid #e0e0e0;

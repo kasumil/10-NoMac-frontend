@@ -3,118 +3,115 @@ import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import { Apiresource } from "../../Config.js";
 
+
 function EmailLogin(props, visible) {
-  const [userInfo, setName] = useState({ email: "", password: "" });
+    const [ userInfo, setName ] = useState({email:"", password:""});
+ 
 
-  const inputValuedetector = (e) => {
-    const { name, value } = e.target;
-    setName({ ...userInfo, [name]: value });
-  };
+    const inputValuedetector = (e) => {
+        const { name, value} = e.target
+        setName({...userInfo, [ name ] : value })
+    };
 
-  const submit = () => {
-    const { email, password } = userInfo;
-    fetch(`${Apiresource}/account/sign-in`, {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.token) {
-          localStorage.setItem("tripadvisor-token", res.token);
-          alert("로그인을 환영합니다");
-          props.history.push("/main");
-        } else {
-          alert("이메일과 비밀번호를 확인해주십시오");
-        }
-      });
-  };
+    const submit = () => {
+        const { email, password } = userInfo
+        fetch(`${Apiresource}/account/sign-in`, {
+            method: 'POST',
+            body: JSON.stringify({ email, password })
+        }) 
+        .then(res => res.json())
+        .then(res => {
+            if (res.token) {
+                localStorage.setItem("tripadvisor-token", res.token)
+                alert("로그인을 환영합니다")
+                props.history.push('/')
+            } else {
+                alert('이메일과 비밀번호를 확인해주십시오')
+            };
+        })
+    }
 
-  const goSignup = (e) => {
-    props.history.push("/Signup");
-  };
+    const isValidEmail = !userInfo.email.length 
+                        || (userInfo.email.length && userInfo.email.includes("@"));
 
-  const returnSocialLogin = (e) => {
-    props.history.push("/SocialLogin");
-  };
 
-  const returnMain = (e) => {
-    props.history.push("/Main");
-  };
-
-  const isValidEmail =
-    !userInfo.email.length ||
-    (userInfo.email.length && userInfo.email.includes("@"));
-
-  return (
-    <>
-      <ModalOverlay visible={visible} />
-      <ModalWrapper tabIndex="-1" visible={visible}>
-        <ModalIner tabIndex="0">
-          <div className="modalOutline">
-            <LoginImageContainer>
-              <LoginImgtag src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_registered.svg" />
-            </LoginImageContainer>
-            <SignInput>
-              <div className="signupContainer">
-                <div className="welcome">환영합니다 - 로그인하세요!</div>
-                <label className="welcome label">이메일 주소</label>
-                <input
-                  onChange={inputValuedetector}
-                  className="inputValue"
-                  type="text"
-                  name="email"
-                  placeholder="이메일"
-                />
-                <label className="welcome label">패스워드</label>
-                <input
-                  onChange={inputValuedetector}
-                  className="inputValue"
-                  type="password"
-                  name="password"
-                  placeholder="비밀번호"
-                />
-                <div
-                  onClick={submit}
-                  className="inputValue logIntitle"
-                  type="buttton"
-                >
-                  로그인
-                </div>
-                <div className="passWordFindertitle">
-                  <span className="passwordfinder">패스워드 찾기</span>
-                </div>
-                <div className="passWordFindertitle">
-                  계정이 없으신가요?
-                  <span onClick={goSignup} className="passwordfinder">
-                    가입하기
-                  </span>
-                </div>
-                <div className="passWordFindertitle">
-                  대신 카카오톡이나 Google을 사용하고 싶으세요?
-                  <span onClick={returnSocialLogin} className="passwordfinder">
-                    돌아가기
-                  </span>
-                </div>
-              </div>
-              <ContiNue>
-                계속 진행할 경우, 트립어드바이저의
-                <span className="textDeco">개인정보 취급방침</span>및
-                <span className="textDeco Cookie">쿠키 정책</span>에 동의한
-                것으로 간주됩니다.
-              </ContiNue>
-            </SignInput>
-            <div className={isValidEmail ? "noneinputError" : "inputError"}>
-              이메일 주소로써 유효하지 않거나 저희쪽에서 메일을 발송할 수 없는
-              문자열을 포함하고있습니다.
-            </div>
-          </div>
-          <button onClick={returnMain} className="returnmain" tabIndex="0">
-            X
-          </button>
-        </ModalIner>
-      </ModalWrapper>
-    </>
-  );
+    return(
+        <>
+            <ModalOverlay visible={visible} />
+            <ModalWrapper tabIndex="-1" visible={visible}>
+              <ModalIner tabIndex="0">
+                  <div className="modalOutline">
+                      <LoginImageContainer>
+                        <LoginImgtag src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_registered.svg" />
+                      </LoginImageContainer>
+                      <SignInput>
+                          <div className="signupContainer">
+                              <div className="welcome">환영합니다 - 로그인하세요!</div>
+                              <label className="welcome label">이메일 주소</label>
+                              <input onChange={inputValuedetector} 
+                                  className="inputValue"
+                                  type='text' 
+                                  name="email" 
+                                  placeholder="이메일" />
+                              <label className="welcome label">패스워드</label>
+                              <input onChange={inputValuedetector} 
+                                  className="inputValue" 
+                                  type='password' 
+                                  name="password" 
+                                  placeholder="비밀번호" />
+                              <div onClick={submit} 
+                                className="inputValue logIntitle" 
+                                type="buttton">
+                                로그인
+                              </div>
+                              <div className="passWordFindertitle">
+                                <span className="passwordfinder">
+                                  패스워드 찾기
+                                </span>
+                              </div>
+                              <div className="passWordFindertitle">
+                                계정이 없으신가요?
+                                <span onClick={()=>props.setMode("signup")} 
+                                    className="passwordfinder">
+                                    가입하기
+                                </span>
+                              </div>
+                              <div className="passWordFindertitle">
+                                대신 카카오톡이나 Google을 사용하고 싶으세요?
+                                <span onClick={()=>props.setMode("social")}
+                                    className="passwordfinder">
+                                    돌아가기
+                                </span>
+                              </div>
+                          </div>
+                          <ContiNue>
+                              계속 진행할 경우, 트립어드바이저의
+                                <span className="textDeco">
+                                    개인정보 취급방침
+                                </span>
+                                및
+                                <span className="textDeco Cookie">
+                                    쿠키 정책
+                                </span>
+                                에 동의한 것으로 간주됩니다. 
+                          </ContiNue>
+                      </SignInput>
+                      <div className={ isValidEmail 
+                                       ? 'noneinputError' 
+                                       : 'inputError'
+                                     } >
+                                       이메일 주소로써 유효하지 않거나 저희쪽에서 메일을 발송할 수 없는 문자열을 포함하고있습니다.
+                      </div>
+                  </div>
+                  <button onClick={props.closeModal} 
+                    className="returnmain" 
+                    tabIndex="0">
+                    X
+                  </button>
+              </ModalIner>
+          </ModalWrapper>
+        </>
+    )
 }
 
 const ModalOverlay = styled.div`

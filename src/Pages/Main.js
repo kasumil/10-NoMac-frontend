@@ -672,7 +672,7 @@ const MainBotMenu = styled.div`
     padding: 32px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-evenly
+    justify-content: space-evenly;
     align-items: center;
 
     div {

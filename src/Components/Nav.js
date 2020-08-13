@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { mainData } from "../MockData/MainData";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
+import SocialLogin from "../Components/LoginComponent/SocialLogin";
+import EmailLogin from "../Components/LoginComponent/EmailLogin"
+import SignUp from "../Components/LoginComponent/Signup"
 
 const Nav = ({ display }) => {
   const [toggle, setToggle] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [data, setData] = useState(mainData.searchData);
   const excludeColumns = ["id", "imgUrl"];
-
+  const [isLoginModalOn ,setIsLoginModalOn] = useState(false);
+  const [loginMode ,setLoginMode] =useState("social")
+  
   const onToggle = () => {
     setToggle(toggle === false ? true : false);
   };
@@ -48,6 +54,31 @@ const Nav = ({ display }) => {
     return scroll;
   };
 
+
+  const openLoginHadler =() => {
+    setIsLoginModalOn(true)
+  };
+
+  const closeModal =()=>{
+    setIsLoginModalOn(false)
+    setLoginMode("social")
+  }
+
+  const modalHandler =(mode)=>{
+    switch(mode){
+      case "social":
+        return <SocialLogin setMode={setLoginMode} closeModal={closeModal}/>
+      case "email":
+        return <EmailLogin setMode={setLoginMode} closeModal={closeModal}/>
+      case "signup":
+        return <SignUp setMode={setLoginMode} closeModal={closeModal}/>
+      default:
+        return <SocialLogin setMode={setLoginMode} closeModal={closeModal}/>
+    }
+  }
+
+  const { y } = useScroll();
+  
   return (
     <NavContainer>
       <div
@@ -110,14 +141,15 @@ const Nav = ({ display }) => {
             <img alt="heart" src="/images/heart.png" />
             <span>여행</span>
           </MenuList>
-          <LoginBtn>로그인</LoginBtn>
+          <LoginBtn onClick={openLoginHadler}>로그인</LoginBtn>
         </BtnWrap>
       </NavWrap>
+      {isLoginModalOn? modalHandler(loginMode):null}
     </NavContainer>
   );
 };
 
-export default Nav;
+export default withRouter(Nav);
 
 const NavContainer = styled.nav`
   background-color: white;
@@ -244,7 +276,7 @@ const ModalWrap = styled.div`
       width: 100%;
       position: absolute;
       top: 42px;
-      display: flex
+      display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;

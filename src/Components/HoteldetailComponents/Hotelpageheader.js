@@ -5,34 +5,30 @@ import { IoMdPin } from "react-icons/io";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { FiShare } from "react-icons/fi";
 import { BsFillHeartFill } from "react-icons/bs";
-import { GrPhone } from "react-icons/gr";
-import { RiEarthLine } from "react-icons/ri";
-import { BsArrowUpRight } from "react-icons/bs";
 
 
 function Hotelpageheader({idx, hotel}) {
-  const [ savePoint , setSavepoint ] = useState(idx.hotel)
-  const [ onMouse, setOnMouse ] = useState( false )
+  const [ savePoint , setSavepoint ] = useState(idx.hotel);
+  const [ onMouse, setOnMouse ] = useState( false );
 
-
-  // const rateAccount(data.rate) {
-  //   if ( data.rate > 1  ) {
-  //       1;
-  //     }
-  //     if( data.rate > 2) {
-  //       2;
-  //     }
-  //     if ( data.rate > 3) {
-  //       3;
-  //     }
-  //     if ( data.rate > 4 ){
-  //       4;
-  //     }
-  //     if (data.rate> 5) {
-  //       5;
-  //     }
-  //   )
-  // }
+  const { kind } = hotel.hotel_rating
+  const circleReturn =(kind) => {
+    if ( kind > 4.5 ) {
+      return "●●●●●"
+    }
+    if ( kind > 3.5 ) {
+      return "●●●●○"
+    }
+    if ( kind > 2.5) {
+      return "●●●○○"
+    }
+    if (kind >1.5) {
+      return "●●○○○"
+    }
+    if (kind > 0.5) {
+      return "●○○○○"
+    }
+  }
 
   return(
     <>
@@ -55,32 +51,21 @@ function Hotelpageheader({idx, hotel}) {
         {/* 여기부터 호텔 이름 */}
         <HotelpageName>
           <HotelpageSubtitleHigh>
-              <h1 className="hotelpageSubBigtitle">나닐로아 볼카노에스 리조트
+              <h1 className="hotelpageSubBigtitle">{hotel.name}
                 <div className="hotelpageSubEnglishtitle">
-                  Grand Naniloa Hotel Hilo - a DoubleTree by Hilton
+                  {hotel.english_name}
                 </div>
               </h1>
           </HotelpageSubtitleHigh> 
           <ReviwPoint>
             <Link to="null">
               <span className="rate">
-                {/* {data.rate} */}
+                {circleReturn(hotel.hotel_rating)}
               </span>
               <span className="marginleft">
-                1,445건의 리뷰
+                {hotel.review_count_msg}
               </span>
             </Link>
-            <div className="reviewRank">
-              <span className="normaltext">
-                <b className="fontweight">
-                  5위
-                </b>
-                (7곳의 
-                <Link className="linktext" to="null">
-                  힐로 소재 호텔 중
-                </Link>)
-              </span>
-            </div>
           </ReviwPoint>
         </HotelpageName>
         <HotelpageSubtileUnder>
@@ -90,27 +75,10 @@ function Hotelpageheader({idx, hotel}) {
                 <Locationbarwrap>
                   <IoMdPin className="locationImg" />
                   <span className="locationName">
-                    93 Banyan Dr, 힐로 하와이 섬, HI
+                    {hotel.address}
                   </span>
                 </Locationbarwrap>
               </div>
-              <PhoneNumberLink>
-                <Link className="phonelinkWrap" to="null">
-                  <GrPhone className="phoneImg" />
-                  <span className="phoneNumber">
-                    +1 855-605-0318
-                  </span>
-                </Link>
-              </PhoneNumberLink>
-              <HotelLinkBar>
-                <Link className="hotelLink" to="null">
-                  <RiEarthLine className="earthImg" />
-                  <span className="textLink">
-                    호텔 웹사이트 방문
-                  </span>
-                  <BsArrowUpRight className="clickImg" />
-                </Link>
-              </HotelLinkBar>
             </HotelPageSubtitleUnderLeft>
             <HotelPageSubtitleUnderRight>
               <HeartSave onMouseEnter={() => setOnMouse(true)} onMouseLeave={() => setOnMouse(false)}>
@@ -138,6 +106,7 @@ function Hotelpageheader({idx, hotel}) {
 // 호텔 헤더
 const HotelpageheaderDIV = styled.div`
   max-width:1280px;
+  width: 100%;
   height: 284px;
   padding: 0 24px;
   margin: 0 auto;
@@ -231,74 +200,26 @@ const HotelpageSubtitleHigh = styled.div`
 
 const ReviwPoint = styled.div`
   width: 100%;
-  height: 20px;
+  height: 30px;
   margin: 4px 0 0;
   display: flex;
 
   .rate{
     width: 80px;
-    height: 16px;
-
-    .rate .rateradio + label {
-    position: relative;
-    display: inline-block;
-    margin-left: -4px;
-    z-index: 10;
-    width: 60px;
-    height: 60px;
-    background-image: url('https://e7.pngegg.com/pngimages/178/1004/png-clipart-circle-computer-icons-circulo-monochrome-geometric-shape.png');
-    background-repeat: no-repeat;
-    background-size: 60px 60px;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    }
-
-    .rate .rateradio:checked + label {
-    background-color: #ff8;
-    }
+    height: 20px;
+    font-size: 30px;
+    color: green;
   }
 
   .marginleft{
     width: 95px;
-    height: 15px;
+    height: 30px;
     font-size: 14px;
     color: #474747;
     font-family: "Arial,Tahoma,Bitstream Vera Sans,sans-serif";
     margin : 0 0 0 5px;
   }
 
-  .reviewRank {
-    width: 205px;
-    height: 18px;
-    margin-left: 20px;
-    padding-left: 20px;
-    border-left: 1px solid grey;
-
-    .normaltext{
-      color: #474747;
-      width: 100%;
-      font-size: 14px;
-      line-height: 18px;
-      font-family: "Arial,Tahoma,Bitstream Vera Sans,sans-serif";
-
-      .fontweight{
-        font-weight: 400;
-      }
-
-      .linktext{
-        color: #474747;
-        width: 110px;
-        height: 16px;
-        line-height:18px;
-        font-size: 14px;
-        font-family: "Arial,Tahoma,Bitstream Vera Sans,sans-serif";
-
-        &:hover {
-          text-decoration:underline;
-        }
-      }
-    }
-  }
 `;
 
 const HotelpageSubtileUnder = styled.div`
@@ -390,7 +311,7 @@ const HotelPageSubtitleUnderLeft = styled.div`
 `;
 
 const Locationbarwrap = styled.div`
-  width: 230px;
+  width: auto;
   height: 25px;
   display: flex;
   align-items: center;
@@ -415,72 +336,6 @@ const Locationbarwrap = styled.div`
   }
 `;
 
-const PhoneNumberLink = styled.div`
-  width: 150px;;
-  height: 26px;
-  margin-left: 12px;
-  border-left: 1px solid #e0e0e0; 
-  display: flex;
-  align-items: center;
 
-
-  .phonelinkWrap{
-    display: flex;
-    align-items: center;
-
-    .phoneImg{
-      width: 18px;
-      height: 18px;
-      margin-right: 6px;
-      margin-left: 12px;
-    }
-
-    .phoneNumber{
-      width: auto;
-      height: 17px;
-      font-size: 14px;
-      font-weight: 400;
-      color: #474747;
-      border-bottom: 1px dotted #e0e0e0;
-      text-decoration: none;
-
-      &:hover{
-        text-decoration: underline;
-      }
-    }
-  }
-`;
-
-const HotelLinkBar = styled.div`
-  width: 175px;
-  height: 26px;
-  margin-left: 12px;
-  border-left: 1px solid #e0e0e0; 
-
-  .hotelLink{
-    display: flex;
-    align-items: center;
-
-    .earthImg{
-      width: 18px;
-      height: 18px;
-      margin: 0 6px;
-    }
-    .textLink{
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 18px;
-      font-family:'Arial, Tahoma, "Bitstream Vera Sans", sans-serif';
-
-      &:hover{
-        text-decoration: underline;
-      }
-    }
-    .clickImg{
-      width: 14px;
-      height: 13.5px;
-    }
-  }
-`;
 
 export default withRouter(Hotelpageheader);
