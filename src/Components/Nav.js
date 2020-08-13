@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { mainData } from "../MockData/MainData";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import SocialLogin from "../Components/LoginComponent/SocialLogin";
-import EmailLogin from "../Components/LoginComponent/EmailLogin"
-import SignUp from "../Components/LoginComponent/Signup"
+import EmailLogin from "../Components/LoginComponent/EmailLogin";
+import SignUp from "../Components/LoginComponent/Signup";
 
 const Nav = ({ display }) => {
   const [toggle, setToggle] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [data, setData] = useState(mainData.searchData);
   const excludeColumns = ["id", "imgUrl"];
-  const [isLoginModalOn ,setIsLoginModalOn] = useState(false);
-  const [loginMode ,setLoginMode] =useState("social")
-  
+  const [isLoginModalOn, setIsLoginModalOn] = useState(false);
+  const [loginMode, setLoginMode] = useState("social");
+
   const onToggle = () => {
     setToggle(toggle === false ? true : false);
   };
@@ -54,31 +55,30 @@ const Nav = ({ display }) => {
     return scroll;
   };
 
-
-  const openLoginHadler =() => {
-    setIsLoginModalOn(true)
+  const openLoginHadler = () => {
+    setIsLoginModalOn(true);
   };
 
-  const closeModal =()=>{
-    setIsLoginModalOn(false)
-    setLoginMode("social")
-  }
+  const closeModal = () => {
+    setIsLoginModalOn(false);
+    setLoginMode("social");
+  };
 
-  const modalHandler =(mode)=>{
-    switch(mode){
+  const modalHandler = (mode) => {
+    switch (mode) {
       case "social":
-        return <SocialLogin setMode={setLoginMode} closeModal={closeModal}/>
+        return <SocialLogin setMode={setLoginMode} closeModal={closeModal} />;
       case "email":
-        return <EmailLogin setMode={setLoginMode} closeModal={closeModal}/>
+        return <EmailLogin setMode={setLoginMode} closeModal={closeModal} />;
       case "signup":
-        return <SignUp setMode={setLoginMode} closeModal={closeModal}/>
+        return <SignUp setMode={setLoginMode} closeModal={closeModal} />;
       default:
-        return <SocialLogin setMode={setLoginMode} closeModal={closeModal}/>
+        return <SocialLogin setMode={setLoginMode} closeModal={closeModal} />;
     }
-  }
+  };
 
   const { y } = useScroll();
-  
+
   return (
     <NavContainer>
       <div
@@ -91,7 +91,9 @@ const Nav = ({ display }) => {
       </div>
       <NavWrap>
         <LogoWrap>
-          <img alt="logo" src="/images/logo.png" />
+          <Link to="/">
+            <img alt="logo" src="/images/logo.png" />
+          </Link>
         </LogoWrap>
         <NavSearchWrap visibility={useScroll() > 350 ? 1 : 0}>
           <button>
@@ -144,7 +146,7 @@ const Nav = ({ display }) => {
           <LoginBtn onClick={openLoginHadler}>로그인</LoginBtn>
         </BtnWrap>
       </NavWrap>
-      {isLoginModalOn? modalHandler(loginMode):null}
+      {isLoginModalOn ? modalHandler(loginMode) : null}
     </NavContainer>
   );
 };
@@ -253,74 +255,74 @@ const NavSearchWrap = styled.form`
 `;
 
 const ModalWrap = styled.div`
-    width: 600px;
-    height: 480px;
-    background-color: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    z-index: 999;
-    overflow: auto;
+  width: 600px;
+  height: 480px;
+  background-color: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  z-index: 999;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: ${(props) => (props.toggle ? "flex" : "none")};
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .searchList {
+    width: 100%;
     position: absolute;
-    top: 0;
-    left: 0;
-    display: ${(props) => (props.toggle ? "flex" : "none")};
+    top: 42px;
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    cursor: pointer;
 
-    ::-webkit-scrollbar {
-      display: none;
-    }
-    
-    .searchList {
+    .list {
       width: 100%;
-      position: absolute;
-      top: 42px;
+      height: 62px;
+      padding: 6px 18px;
       display: flex;
-      flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      cursor: pointer;
 
-      .list {
-        width: 100%;
-        height: 62px;
-        padding: 6px 18px;
+      &:hover {
+        background-color: #f2f2f2;
+      }
+
+      img {
+        width: 42px;
+        height: 42px;
+        margin-right: 12px;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      p {
+        height: 42px;
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
 
-        &:hover {
-          background-color: #f2f2f2;
+        .placeName {
+          font-size: 16px;
+          font-weight: 700;
         }
 
-        img {
-          width: 42px;
-          height: 42px;
-          margin-right: 12px;
-          border-radius: 12px;
-          object-fit: cover;
-        }
-
-        p {
-          height: 42px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: flex-start;
-
-          .placeName {
-            font-size: 16px;
-            font-weight: 700;
-          }
-
-          .nationName {
-            font-size: 14px;
-            color: #8c8c8c;
-          }
+        .nationName {
+          font-size: 14px;
+          color: #8c8c8c;
         }
       }
     }
+  }
 `;
 
 const BtnWrap = styled.ul`

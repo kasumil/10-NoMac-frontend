@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Link } from "react-router-dom";
 import Nav from "../Components/Nav";
 import Modal from "../Components/Modal";
+import { hotelListUrl } from "../Config";
 import styled from "styled-components";
 
 const Review = () => {
@@ -29,7 +30,7 @@ const Review = () => {
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch("http://10.58.5.52:8000/review?user=수호", requestOptions)
+    fetch(`${hotelListUrl}/review?user=수호`, requestOptions)
       .then((res) => res.json())
       .then((res) => {
         const newData = res.review_list.map((data) => {

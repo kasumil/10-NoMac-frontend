@@ -13,10 +13,11 @@ const Routes = () => {
       <Switch>
         <Route exact path="/" component={Main} />
         <Route exact path="/review" component={Review} />
+        <Route exact path="/socialLogin" component={SocialLogin} />
+        <Route exact path="/emailLogin" component={EmailLogin} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/hotelpage" component={Hotelpage} />
         <Route exact path="/postreview" component={PostReview} />
-        <Route exact path="/list" component={DetailListPage} />
-        <Route exact path="/map" component={GoogleMap} />
       </Switch>
       <Footer />
     </Router>

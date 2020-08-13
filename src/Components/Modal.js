@@ -117,7 +117,6 @@ export default withRouter(Modal);
 const ModalContainer = styled.div`
   width: 100%:
   height: 100%;
-
   .overlay {
     position: fixed;
     top: 0;
@@ -130,20 +129,16 @@ const ModalContainer = styled.div`
     z-index: 101;
     background-color: rgba(0, 0, 0, 0.9);
   }
-
   .modal {
     position: relative;
     z-index: 99;
     width: 1280px;
     margin: 0 auto;
     line-height: 0;
-
-
     .modalBody {
       width: 1080px;
       margin: 0 auto;
     }
-
     .feedImgWrap {
           width: 1080px;
           height: 800px;
@@ -170,7 +165,7 @@ const ModalContainer = styled.div`
         }
     }
   }
-
+  
   .modalClose {
     position: absolute;
     top: 20px;
@@ -183,7 +178,6 @@ const ModalContainer = styled.div`
     font-size: 20px;
     color: white;
     cursor: pointer;
-
     span {
       font-size: 24px;
       font-weight: 700;
@@ -204,7 +198,6 @@ const FeedBoard = styled.div`
   flex-direction: column;
   justify-content: flex;
   align-items: center;
-
   .boardHead {
     width: 480px;
     height: 50px;
@@ -216,7 +209,6 @@ const FeedBoard = styled.div`
     justify-content: flex-start;
     align-items: center;
   }
-
   .boardCon {
     width: 480px;
     height: 308px;
@@ -226,98 +218,80 @@ const FeedBoard = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
     li {
       width: 432px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
-
       span {
         font-size: 12px;
       }
     }
-
     .boardUser {
       height: 48px;
       flex-direction: initial;
       align-items: center;
-
       .userImgWrap {
         width: 42px;
         height: 42px;
         margin-right: 10px;
         border-radius: 100%;
         overflow: hidden;
-
         .userImg {
           width: 42px;
           height: 42px;
           object-fit: contain;
         }
       }
-
       p {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-
         span:nth-child(1) {
           font-size: 14px;
           font-weight: 700;
         }
       }
     }
-
     .substance {
       height: auto;
       margin-bottom: 10px;
       text-align: left;
-
       span {
         margin-top: 8px;
       }
-
       span:nth-child(1) {
         font-size: 18px;
         font-weight: 700;
       }
-
       span:nth-child(2) {
         font-size: 14px;
       }
     }
-
     .boardDate {
       height: 18px;
-
       span {
         font-size: 14px;
         font-weight: 700;
         color: #474747;
       }
     }
-
     .moreReview {
       height: 39px;
-
       span {
         padding: 8px 0;
         color: #8c8c8c;
-
         &:hover {
           text-decoration: underline;
           cursor: pointer;
         }
       }
     }
-
     .boardIconWrap {
       height: 22px;
       flex-direction: initial;
-
       p {
         margin-right: 20px;
         font-size: 12px;
@@ -326,11 +300,9 @@ const FeedBoard = styled.div`
         align-items: center;
         opacity: 0.3;
         cursor: pointer;
-
         &:hover {
           opacity: 1;
         }
-
         img {
           width: 20px;
           height: 20px;
@@ -340,7 +312,6 @@ const FeedBoard = styled.div`
       }
     }
   }
-
   .aboutPlace {
     width: 480px;
     height: 147px;
@@ -350,7 +321,6 @@ const FeedBoard = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
     .aboutText {
       width: 432px;
       height: 20px;
@@ -359,7 +329,6 @@ const FeedBoard = styled.div`
       font-size: 16px;
       font-weight: 700;
     }
-
     .findPlace {
       width: 432px;
       height: 62px;
@@ -367,18 +336,15 @@ const FeedBoard = styled.div`
       display: flex;
       justify-content: flex-start;
       align-items: center;
-
       .otherPlace {
         width: 62px;
         height: 62px;
         object-fit: cover;
       }
-
       .placeInfo {
         width: 400px;
         height: 62px;
         margin-left: 10px;
-
         p {
           width: 300px;
           height: 20px;
@@ -386,7 +352,6 @@ const FeedBoard = styled.div`
           text-align: left;
           font-size: 12px;
         }
-
         .placeName {
           font-weight: 700;
         }
