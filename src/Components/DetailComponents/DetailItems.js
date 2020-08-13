@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -23,74 +24,87 @@ const DetailItems = (props) => {
     <>
       {hotelData && loading ? (
         hotelData.map((hotelData) => (
-          <DetailItem key={hotelData.id}>
-            <Slider {...settings}>
-              {hotelData.image.map((image, index) => (
-                <div key={index} className="hotelContainer">
-                  <img alt="hotel" className="imgHotel" src={image} />
+          <Link
+            to="/hotelpage"
+            onClick={sessionStorage.setItem("pageNumber", hotelData.id)}
+          >
+            <DetailItem key={hotelData.id}>
+              <Slider {...settings}>
+                {hotelData.image.map((image, index) => (
+                  <div key={index} className="hotelContainer">
+                    <img alt="hotel" className="imgHotel" src={image} />
+                  </div>
+                ))}
+              </Slider>
+              <ItemColumnContainer>
+                <p>{hotelData.name}</p>
+                <div className="itemRowContainer">
+                  {hotelData.provider_logo !== "" ? (
+                    <>
+                      <ContentColumnContainer>
+                        <div className="imgLogo">
+                          <img
+                            alt="hotel  logo"
+                            src={hotelData.provider_logo}
+                          />
+                        </div>
+                        <h1 className="price">
+                          {priceHandler(hotelData.price)}
+                        </h1>
+                        <button className="specialPriceBtn">특가보기</button>
+                      </ContentColumnContainer>
+                      <ContentColumnContainer>
+                        <HotelUrl>Agoda.com</HotelUrl>
+                        <p>{priceHandler(hotelData.price - 32292)}</p>
+                        <HotelUrl>Expedia</HotelUrl>
+                        <p>{priceHandler(hotelData.price - 26782)}</p>
+                        <HotelUrl>Booking.com</HotelUrl>
+                        <p>{priceHandler(hotelData.price - 19543)}</p>
+                      </ContentColumnContainer>
+                    </>
+                  ) : (
+                    <HotelMoveContainer>
+                      <button className="notPriceBtn">호텔로 이동하기</button>
+                    </HotelMoveContainer>
+                  )}
+                  <ContentColumnContainer>
+                    <ScoreContainer>
+                      <p className="score">
+                        <strong>{parseFloat(hotelData.user_rating)}</strong> /
+                        5점
+                      </p>
+                      <p className="review">
+                        {" " + hotelData.review_count_msg}
+                      </p>
+                    </ScoreContainer>
+                    <HotelInfo>
+                      <p className="facilitiesTitle">부대 시설</p>
+                      <div className="contentContainer">
+                        <div className="icon">
+                          {hotelData.facilities_path.map(
+                            (facilities_path, index) => (
+                              <div key={index} className="imgContainer">
+                                <img
+                                  className="facilitieImg"
+                                  alt="facilitie"
+                                  src={facilities_path}
+                                />
+                              </div>
+                            )
+                          )}
+                        </div>
+                        <ContentText>
+                          {hotelData.facilities.map((facilities, index) => (
+                            <p key={index}>{facilities}</p>
+                          ))}
+                        </ContentText>
+                      </div>
+                    </HotelInfo>
+                  </ContentColumnContainer>
                 </div>
-              ))}
-            </Slider>
-            <ItemColumnContainer>
-              <p>{hotelData.name}</p>
-              <div className="itemRowContainer">
-                {hotelData.provider_logo !== "" ? (
-                  <>
-                    <ContentColumnContainer>
-                      <div className="imgLogo">
-                        <img alt="hotel  logo" src={hotelData.provider_logo} />
-                      </div>
-                      <h1 className="price">{priceHandler(hotelData.price)}</h1>
-                      <button className="specialPriceBtn">특가보기</button>
-                    </ContentColumnContainer>
-                    <ContentColumnContainer>
-                      <HotelUrl>Agoda.com</HotelUrl>
-                      <p>{priceHandler(hotelData.price - 32292)}</p>
-                      <HotelUrl>Expedia</HotelUrl>
-                      <p>{priceHandler(hotelData.price - 26782)}</p>
-                      <HotelUrl>Booking.com</HotelUrl>
-                      <p>{priceHandler(hotelData.price - 19543)}</p>
-                    </ContentColumnContainer>
-                  </>
-                ) : (
-                  <HotelMoveContainer>
-                    <button className="notPriceBtn">호텔로 이동하기</button>
-                  </HotelMoveContainer>
-                )}
-                <ContentColumnContainer>
-                  <ScoreContainer>
-                    <p className="score">
-                      <strong>{parseFloat(hotelData.user_rating)}</strong> / 5점
-                    </p>
-                    <p className="review">{" " + hotelData.review_count_msg}</p>
-                  </ScoreContainer>
-                  <HotelInfo>
-                    <p className="facilitiesTitle">부대 시설</p>
-                    <div className="contentContainer">
-                      <div className="icon">
-                        {hotelData.facilities_path.map(
-                          (facilities_path, index) => (
-                            <div key={index} className="imgContainer">
-                              <img
-                                className="facilitieImg"
-                                alt="facilitie"
-                                src={facilities_path}
-                              />
-                            </div>
-                          )
-                        )}
-                      </div>
-                      <ContentText>
-                        {hotelData.facilities.map((facilities, index) => (
-                          <p key={index}>{facilities}</p>
-                        ))}
-                      </ContentText>
-                    </div>
-                  </HotelInfo>
-                </ContentColumnContainer>
-              </div>
-            </ItemColumnContainer>
-          </DetailItem>
+              </ItemColumnContainer>
+            </DetailItem>
+          </Link>
         ))
       ) : (
         <>
