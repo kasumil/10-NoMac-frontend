@@ -31,6 +31,9 @@ const DetailPage = () => {
     )
       .then((res) => res.json())
       .then((res) => {
+        res.message === "NotExistData" && window.location.reload();
+        res.message === "NotExistData" &&
+          alert("요청하신 호텔정보가 존재하지 않습니다.");
         setHotelData(res.data);
         setHotelCount(Math.ceil(res.hotel_count / 30));
         setLoading(true);

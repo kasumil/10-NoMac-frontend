@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const AsidePopular = (detailData) => {
-  console.log({ detailData });
-
   return (
     <>
       <H1>인기</H1>

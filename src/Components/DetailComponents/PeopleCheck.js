@@ -61,7 +61,7 @@ const PeopleCheck = () => {
             <button
               className="numberBtn"
               name="minus"
-              id="roomInputPlus"
+              id="roomInputMinus"
               onClick={reservationHandler}
             >
               -
@@ -70,7 +70,7 @@ const PeopleCheck = () => {
             <button
               className="numberBtn"
               name="plus"
-              id="roomInputMinus"
+              id="roomInputPlus"
               onClick={reservationHandler}
             >
               +

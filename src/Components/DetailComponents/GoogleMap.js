@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import { hotelListUrl } from "../../Config";
 import { mapApi } from "../../apiKey/mapApi";
 import { detailData } from "../../MockData/DetailData";
@@ -9,8 +9,9 @@ import styled from "styled-components";
 const MapAPI = (props) => {
   const [stores, setStores] = useState([]);
   const [hotelData, setHotelData] = useState();
-  // const [isToggle, setIsToggle] = useState(false);
   const [RadioNumber, setRadioNumber] = useState(1);
+  const [clickLat, setClickLat] = useState(1);
+  const [clickLng, setClickLng] = useState(1);
 
   useEffect(() => {
     fetch(`${hotelListUrl}/hotel/map`)
@@ -46,6 +47,11 @@ const MapAPI = (props) => {
       });
   }, [RadioNumber]);
 
+  const markClickHandler = (store) => {
+    setClickLat(store.position.lat);
+    setClickLng(store.position.lng);
+  };
+
   return (
     <HotelMap>
       <div className="hotelList">
@@ -55,17 +61,6 @@ const MapAPI = (props) => {
             지도닫기
           </Link>
         </BtnContainer>
-        {/* <FilterContainer>
-          <span className="filter">분류</span>
-          <span
-            className="filter"
-            onClick={
-              !isToggle ? () => setIsToggle(true) : () => setIsToggle(false)
-            }
-          >
-            필터
-          </span>
-        </FilterContainer> */}
         <RadioContainer>
           {detailData.filter.map(({ number, index, name }) => (
             <label
@@ -89,7 +84,14 @@ const MapAPI = (props) => {
         {hotelData &&
           hotelData.map((hotelData, index) => (
             <div key={index}>
-              <HotelContainer>
+              <HotelContainer
+                backgroundColor={
+                  parseFloat(hotelData.lat) === parseFloat(clickLat) &&
+                  parseFloat(hotelData.lng) === parseFloat(clickLng)
+                    ? true
+                    : false
+                }
+              >
                 <div className="hotelImgContainer">
                   <img alt="hotel  img" src={hotelData.image} />
                 </div>
@@ -104,7 +106,7 @@ const MapAPI = (props) => {
                     원
                   </p>
                   <p className="hotelRating">
-                    {hotelData.user_rating} / <strong>5점</strong>
+                    {parseFloat(hotelData.user_rating)} / <strong>5점</strong>
                   </p>
                 </HotelInfoContainer>
               </HotelContainer>
@@ -114,6 +116,7 @@ const MapAPI = (props) => {
       </div>
       <MapCotainer>
         <Map
+          locale="ko"
           google={props.google}
           zoom={9.5}
           initialCenter={{ lat: 19.5, lng: -155.4 }}
@@ -128,7 +131,22 @@ const MapAPI = (props) => {
                   lat: store.lat,
                   lng: store.lng,
                 }}
-              />
+                onClick={markClickHandler}
+              ></Marker>
+            ))}
+          {stores.length > 0 &&
+            stores.map((store, index) => (
+              <InfoWindow
+                key={index}
+                id={index}
+                position={{
+                  lat: store.lat,
+                  lng: store.lng,
+                }}
+                content="test"
+                disableAutoPan={false}
+                zIndex={999}
+              ></InfoWindow>
             ))}
         </Map>
       </MapCotainer>
@@ -141,35 +159,35 @@ export default GoogleApiWrapper({
 })(MapAPI);
 
 const RadioContainer = styled.div`
+  top: 670px;
+  left: 350px;
   position: absolute;
-  top: 560px;
-  left: 332px;
   z-index: 9999;
   background: white;
   border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 2px;
+  padding: 10px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
 
   .radioLabel {
-    margin-top: 20px;
+    margin: 10px;
     display: flex;
     justify-content: center;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 700;
     color: var(--color);
 
     .radioText {
-      width: 220px;
-      border: 1px solid black;
+      width: 160px;
       border-radius: 5px;
-      padding: 10px;
+      padding: 6px;
     }
 
     .radioInput {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 20px;
+      margin-right: 10px;
 
       input {
         width: 20px;
@@ -205,30 +223,16 @@ const BtnContainer = styled.div`
   }
 `;
 
-// const FilterContainer = styled.div`
-//   height: 40px;
-//   padding: 8px 18px;
-//   border-bottom: 1px solid #e0e0e0;
-
-//   .filter {
-//     margin: 0 5px;
-//     padding: 4px 8px;
-//     font-size: 14px;
-//     font-weight: bold;
-//     border: 1px solid #e0e0e0;
-//     cursor: pointer;
-//   }
-// `;
-
 const HotelContainer = styled.div`
   height: 110px;
   display: flex;
   cursor: pointer;
+  background-color: ${(props) =>
+    props.backgroundColor === true ? "#34E0A1" : "white"};
 
   .radioBtn {
     width: 40px;
     height: 40px;
-
     font-size: 40px;
   }
 
@@ -279,7 +283,7 @@ const HotelMap = styled.section`
   display: flex;
 
   .hotelList {
-    width: 340px;
+    width: 360px;
     height: 900px;
     overflow: scroll;
   }
@@ -287,7 +291,7 @@ const HotelMap = styled.section`
 
 const MapCotainer = styled.div`
   position: relative;
-  width: 1400px;
+  width: 100%;
   height: 900px;
 `;
 
