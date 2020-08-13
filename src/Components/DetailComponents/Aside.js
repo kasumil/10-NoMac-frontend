@@ -39,11 +39,6 @@ const AsideComponent = () => {
         </AsideItem>
       ))}
       <AsideHr />
-      <H1>가격</H1>
-      <div className="asideItem">
-        <p>￦0 ~ ￦749,558</p>
-      </div>
-      <AsideHr />
       <AsidePopular detailData={detailData} />
       <H1>시설 타입</H1>
       {detailData.type.map(({ name, number, index }) => (

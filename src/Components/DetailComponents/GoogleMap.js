@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
+import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import { hotelListUrl } from "../../Config";
 // import { mapApi } from "../../apiKey/mapApi";
 import { detailData } from "../../MockData/DetailData";
 import styled from "styled-components";
+// import MyGreatPlaceWithControllableHover from "./my_great_place_with_controllable_hover.jsx";
 
 const MapAPI = (props) => {
   const [stores, setStores] = useState([]);
@@ -14,7 +15,7 @@ const MapAPI = (props) => {
   const [clickLng, setClickLng] = useState(1);
 
   useEffect(() => {
-    fetch(`${hotelListUrl}/hotel/map`)
+    fetch(`${hotelListUrl}/hotel/map?user_rating=1`)
       .then((res) => res.json())
       .then((res) => {
         setHotelData(res.data);
@@ -132,21 +133,7 @@ const MapAPI = (props) => {
                   lng: store.lng,
                 }}
                 onClick={markClickHandler}
-              ></Marker>
-            ))}
-          {stores.length > 0 &&
-            stores.map((store, index) => (
-              <InfoWindow
-                key={index}
-                id={index}
-                position={{
-                  lat: store.lat,
-                  lng: store.lng,
-                }}
-                content="test"
-                disableAutoPan={false}
-                zIndex={999}
-              ></InfoWindow>
+              />
             ))}
         </Map>
       </MapCotainer>
