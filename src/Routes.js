@@ -1,8 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Hotelpage from "./Components/HoteldetailComponents/Hotelpage";
-import Main from "./Pages/Main.js";
-import Review from "./Pages/Review.js";
+import Main from "./Pages/Main";
+import Review from "./Pages/Review";
+import PostReview from "./Pages/PostReview";
+import SocialLogin from "./Components/LoginComponent/SocialLogin";
+import EmailLogin from "./Components/LoginComponent/EmailLogin";
+import Signup from "./Components/LoginComponent/Signup";
 import Footer from "./Components/Footer";
 import DetailListPage from "./Pages/DetailListPage";
 import GoogleMap from "./Components/DetailComponents/GoogleMap";
@@ -18,6 +22,8 @@ const Routes = () => {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/hotelpage" component={Hotelpage} />
         <Route exact path="/postreview" component={PostReview} />
+        <Route exact path="/list" component={DetailListPage} />
+        <Route exact path="/map" component={GoogleMap} />
       </Switch>
       <Footer />
     </Router>

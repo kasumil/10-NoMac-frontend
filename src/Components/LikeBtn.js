@@ -38,6 +38,6 @@ const LikeBtns = styled.div`
   background: ${(props) =>
     props.backUrl
       ? `url(/images/fillheart.png) no-repeat center center`
-      : `url(/images/heart.png) no-repeat center center`};
+      : `url(/images/emptyheart.png) no-repeat center center`};
   background-size: 50%;
 `;

@@ -77,8 +77,6 @@ const Nav = ({ display }) => {
     }
   };
 
-  const { y } = useScroll();
-
   return (
     <NavContainer>
       <div
@@ -140,7 +138,7 @@ const Nav = ({ display }) => {
             <span>알림</span>
           </MenuList>
           <MenuList>
-            <img alt="heart" src="/images/heart.png" />
+            <img alt="heart" src="/images/emptyheart.png" />
             <span>여행</span>
           </MenuList>
           <LoginBtn onClick={openLoginHadler}>로그인</LoginBtn>

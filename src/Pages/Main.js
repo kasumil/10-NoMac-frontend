@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import Nav from "../Components/Nav";
 import BtnMenu from "../Components/BtnMenu";
@@ -35,10 +35,6 @@ const Main = () => {
       setData(filteredData);
     }
   };
-
-  useEffect(() => {
-    const localToken = localStorage.getItem("tripadvisor-token");
-  });
 
   return (
     <>
@@ -670,7 +666,7 @@ const MainBotMenu = styled.div`
     width: 1280px;
     height: 207px;
     padding: 32px;
-    margin: 0 auto;
+    margin: 20px auto 0;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -679,7 +675,7 @@ const MainBotMenu = styled.div`
       width: 193px;
       height: 207px;
 
-      p:nth-child(1){
+      p:nth-child(1) {
         height: 19px;
         margin-bottom: 6px;
         font-size: 16px;
@@ -687,7 +683,7 @@ const MainBotMenu = styled.div`
         line-height: 120%;
       }
 
-      p:nth-child(n+2) {
+      p:nth-child(n + 2) {
         margin-bottom: 6px;
         font-size: 14px;
         font-weight: 400;
