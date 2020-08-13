@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
+import { RiParkingBoxLine, RiWifiLine, RiHandHeartLine } from "react-icons/ri";
+import { FaHiking, FaBath, FaBaby } from "react-icons/fa";
+import { FiCoffee, FiTv } from "react-icons/fi";
+import { MdCardTravel, MdSmokeFree } from "react-icons/md";
+import { IoIosBed } from "react-icons/io";
+import { GiKnifeFork } from "react-icons/gi";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,6 +15,7 @@ function HotelIntroduce({idx,hotel}) {
   const [ savepoint , setSavepoint ] = useState(hotel)
   const [ moretext, setMortext ] = useState(false)
   const { kind } = hotel.hotel_rating
+
   
   const ratingReturn = (kind) => {
     if ( kind > 4.5 ) {
@@ -49,21 +56,76 @@ function HotelIntroduce({idx,hotel}) {
   const Splitcontent = hotel.content
   const SplitMap = Splitcontent.split(".")
 
-  const hiddenText = () => {
-    setMortext ({
-        moretext: false,
-        limit : 3
-      }
-    );
+  const settings = {
+    infinite: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   }
 
-  const settings = {
+  const Typefacilities =(el) => {
+    const facilities = {
+      "무료 주차" : <RiParkingBoxLine />,
+      "무료 초고속 인터넷(Wi-Fi)": <RiWifiLine />,
+      "온수 욕조": <FaBath />,
+      "무료 조식": <FiCoffee />,
+      "하이킹": <FaHiking/>,
+      "베이비시팅": <FaBaby/>,
+      "마사지":<RiHandHeartLine/>,
+      "수하물 보관": <MdCardTravel/>
+    }
+    return (
+      <div className="typeBox">
+       {facilities[el]}
+       <div className="marginLeft">{el}</div>
+      </div>
+    )
+  };
 
-   }
-   
+  const Typeamenities =(el) => {
+    const Amenities = {
+      "목욕 가운" : <IoIosBed />,
+      "벽난로" : <IoIosBed />,
+      "하우스키핑" : <IoIosBed />,
+      "옷장/벽장" : <IoIosBed />,
+      "커피/티 메이커" : <FiCoffee />,
+      "평면 TV" : <FiTv />,
+      "소파 침대" : <IoIosBed />,
+      "욕실/샤워실" : <FaBath />,
+      "다리미" : <IoIosBed />,
+      "전용 욕실" : <IoIosBed />,
+      "모닝콜 서비스/알람 시계" : <IoIosBed />,
+      "전자레인지" : <GiKnifeFork />,
+      "냉장고" : <GiKnifeFork />,
+      "전기 주전자" : <GiKnifeFork />,
+      "DVD/CD 플레이어" : <FiTv />,
+      "전기 담요" : <IoIosBed />,
+      "무료 세면도구" : <FaBath />,
+      "헤어드라이어" : <FaBath />
+    }
+    return (
+      <div className="typeBox">
+       {Amenities[el]}
+       <div className="marginLeft">{el}</div>
+      </div>
+    )
+  }
+
+  const Typeroom =(el) => {
+    const roomtypes = {
+      "금연실": <MdSmokeFree />,
+      "스위트": <IoIosBed />,
+      "패밀리 룸": <IoIosBed />
+    }
+    return (
+      <div className="typeBox">
+       {roomtypes[el]}
+       <div className="marginLeft">{el}</div>
+      </div>
+    )
+  }
 
   return(
-    <>
+    <Flex>
       <HotelIntroduceDIV>
         <div>
           <IntroduceTitle>
@@ -98,42 +160,81 @@ function HotelIntroduce({idx,hotel}) {
                 <div className="title">가격</div>
               </PointPrice>
               <FoldingContent>
-                <ul className="foldingMargin" moretext={moretext}  >
+                <ul className={moretext? "foldingMargin": "foldingMargin hidden"} >
                     {SplitMap.map((hotel) => {
                       return(
                         <li>{hotel}</li>
                       )})}
                 </ul>
                 <div className="foldBtn">
-                  <div className="" onClick={() => setMortext(true)}>더보기</div>
-                  <div className="" onClick={() => setMortext(false)}>덜 보기</div>
+                  <div className={moretext? "btnHidden": "btnDisplay"} onClick={() => setMortext(true)}>더보기</div>
+                  <div className={moretext? "btnDisplay": "btnHidden"} onClick={() => setMortext(false)}>덜 보기</div>
                 </div>
               </FoldingContent>
               <MiniPicture>
                 <CustomSlider {...settings}>
                   {hotel.image.map(hotel =>{
                     return (
-                      <img className="smallBigimg" src={hotel} alt="" />
+                        <div>
+                          <img className="smallBigimg" src={hotel} alt="" />
+                        </div>
                     )})}
                   </CustomSlider>
+                  <Overflow>
+                    {hotel.image.map(hotel=>{
+                      return(
+                        <div>
+                          <img className="verySmallimg" src={hotel} alt="" />
+                        </div>
+                      )
+                    })}
+                  </Overflow>
               </MiniPicture>
             </HotelContentLeft>
             <HotelContentRight>
-                      편의시설
+              <HotelFistContainer>
+                <div className="firstTitle">편의 시설</div>
+                <Hotelfacilities>
+                  <div className='elControl'>{hotel.facilities.map(e => Typefacilities(e))}</div>
+                </Hotelfacilities>
+              </HotelFistContainer>
+              <div className="dummyBTN">더보기</div>
+              <HotelSecondContainer>
+                <div className="secondTitle">객실 특징</div>
+                <Amanities>
+                  <div className='elControl'>{hotel.amanities.map(e => Typeamenities(e))}</div>
+                </Amanities>
+              </HotelSecondContainer>
+              <div className="dummyBTN">더보기</div>
+              <HotelThirdContainer>
+                <div className="thirdTitle">객실유형</div>
+                <Roomtype>
+                  <div className='elControl'>{hotel.roomtypes.map(e => Typeroom(e))}</div>
+                </Roomtype>
+              </HotelThirdContainer>
             </HotelContentRight>
           </HotelContent>
         </div>
       </HotelIntroduceDIV>
-    </>
+      <Ad>
+        <div className="adCenter">
+          <img className="adimg" src="/images/adImg.png" alt="광고창" />
+        </div>
+      </Ad>
+    </Flex>
   )
 }
 
 export default withRouter(HotelIntroduce);
 
+const Flex = styled.div`
+  display: flex;
+`;
+
 const HotelIntroduceDIV = styled.div`
   max-width: 1280px;
   width: 814px;
-  height: 1274px;
+  height: auto;
   margin: 24px 0 12px 0;
   padding: 24px;
   background-color: white;
@@ -159,14 +260,15 @@ const IntroduceTitle = styled.div`
 // 호텔 소개 내용 전체
 const HotelContent = styled.div`
   width: 100%;
-  height: 987px;
+  /* height: 100%; */
+  display : flex;
 `;
 
 //소개 왼쪽 
 const HotelContentLeft = styled.div`
   width: 50%;
-  height: 1125px;
-  padding: 12px;
+  /* height: auto; */
+  padding: 0 23px 0 12px;
   position: relative;
 `;
 
@@ -253,7 +355,7 @@ const PointContent = styled.div`
   }
   `;
 
-  const PointPrice = styled.div`
+const PointPrice = styled.div`
     width: 100%;
     height: 30px;
     margin-bottom: 24px;
@@ -278,48 +380,64 @@ const PointContent = styled.div`
     }
   `;
 
-  const FoldingContent = styled.div`
-    width: 100%;
-    height: 582px;
-
-    .foldingMargin{
-      font-size: 16px;
-      overflow: hidden;
-      max-height: 175px;
-
-      li{
-        margin-bottom: 12px;
-      }
-    }
-  `;
-
-  const MiniPicture = styled.div`
-    width: 372px;
-    height: 325px;
-    border: 1px solid red;
-    position: absolute;
-
-    .smallBigimg{
-      width: 372px;
-      height: 272px;
-    }
+const FoldingContent = styled.div`
+  width: 100%;
+  height: auto;
+  
+  .foldingMargin{
+    font-size: 16px;
 
     li{
-      width:100%;
-      height: 52px;
-      display: flex;
-      flex-wrap: wrap;
+      margin-bottom: 12px;
     }
+  }
 
-    .verySmallimg{
-      width: 47px;
-      height: 50px;
-    }
-  `;
+  .hidden {
+    overflow: hidden;
+    max-height: 175px;
+  }
+
+  .btnDisplay{
+    display: block;
+    cursor: pointer;
+    width: 48px;
+    border-bottom: 1px dotted #e0e0e0;
+    margin-right: 4px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #474747;
+    font-family: "Arial, Tahoma, Bitstream Vera Sans, sans-serif";
+  }
+
+  .btnHidden{
+    display: none;
+  }
+`;
+
+const MiniPicture = styled.div`
+  width: 348px;
+  position: absolute;
+  cursor: pointer;
+
+  .smallBigimg{
+    width: 348px;
+    height: 272px;
+  }
+
+  li{
+    width:100%;
+    height: 52px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+`;
 
 const CustomSlider = styled(Slider)`
-  width: 372px;
+  width: 348px;
   height: 100%;
+
+  
 
   .slick-disabled {
     display: none !important;
@@ -367,7 +485,206 @@ const CustomSlider = styled(Slider)`
   }
   `;
 
+const Overflow = styled.div`
+  width: 350px;
+  height: 52px;
+  display: flex;
+  overflow: hidden;
+
+  .verySmallimg{
+    width: 48px;
+    height: 50px;
+    margin: 1px;
+
+    &:hover{
+      opacity: 0.7;
+    }
+  }
+`;
+
 
   //소개 오른쪽
-  const HotelContentRight = styled.div``;
+const HotelContentRight = styled.div`
+  height: auto;
 
+  .dummyBTN {
+    color: black;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 18px;
+    display: block;
+
+    &:hover{
+      text-decoration:underline;
+    }
+  }
+`;
+
+const HotelFistContainer = styled.div`
+  width: 370px;
+  height: 260px;
+
+  .firstTitle{
+    color: #2c2c2c;
+    margin-bottom: 16px;
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Arial,Tahoma,Bitstream Vera Sans,sans-serif';
+  }
+`;
+
+const Hotelfacilities = styled.div`
+  width: 370px;
+  height: auto;
+  
+  .elControl {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+    height: auto;
+  }
+
+  .typeBox{
+    width: 185px;
+    height: 36px;
+    font-size: 17px;
+    color: #474747;
+    font-family: 'Arial,Tahoma,Bitstream Vera Sans,sans-serif';
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    
+    svg{
+      width: 30px;
+      height: 26px;
+    }
+  
+    .marginLeft{
+      width: 100%;
+      height: 100%;
+      margin-left: 3px;
+      line-height: 18px;
+      display: flex;
+      align-items: center;
+    }
+  }
+`;
+
+
+const HotelSecondContainer = styled.div`
+  width: 100%;
+  height: 255px;
+
+  .secondTitle{
+    color: black;
+    margin: 20px 0 16px;
+    padding: 20px 0 0;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Arial,Tahoma,Bitstream Vera Sans,sans-serif';
+  }
+
+  .elControl {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  height: auto;
+  }
+
+  .typeBox{
+    width: 185px;
+    height: 36px;
+    font-size: 17px;
+    color: #474747;
+    font-family: 'Arial,Tahoma,Bitstream Vera Sans,sans-serif';
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    
+    svg{
+      width: 30px;
+      height: 26px;
+    }
+  }
+    .marginLeft{
+      width: 100%;
+      height: 100%;
+      margin-left: 3px;
+      line-height: 18px;
+      display: flex;
+      align-items: center;
+    }
+  `;
+
+const Amanities = styled.div`
+  width: 370px;
+  height: 180px;  
+`;
+const Roomtype = styled.div`
+  width: 370px;
+  height: 180px; 
+`;
+
+const HotelThirdContainer = styled.div`
+  .thirdTitle{
+    color: black;
+    margin: 20px 0 16px;
+    padding: 20px 0 0;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Arial,Tahoma,Bitstream Vera Sans,sans-serif';
+  }
+
+  .elControl {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+    height: auto;
+    }
+
+  .typeBox{
+    width: 185px;
+    height: 36px;
+    font-size: 17px;
+    color: #474747;
+    font-family: 'Arial,Tahoma,Bitstream Vera Sans,sans-serif';
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    
+    svg{
+      width: 30px;
+      height: 26px;
+    }
+  }
+    .marginLeft{
+      width: 100%;
+      height: 100%;
+      margin-left: 3px;
+      line-height: 18px;
+      display: flex;
+      align-items: center;
+    }
+`;
+
+
+// 광고창 ad
+const Ad =styled.div`
+  width: 419px;
+  height: 1014px;
+  padding: 24px 12px 0 12px;
+
+  .adCenter {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+
+    .adimg{
+      width: 300px;
+      height: 700px;
+    }
+  }
+`;

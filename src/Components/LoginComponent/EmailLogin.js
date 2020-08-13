@@ -31,8 +31,8 @@ function EmailLogin(props, visible) {
         })
     }
 
-    const isValidEmail = !userInfo.email.length 
-                        || (userInfo.email.length && userInfo.email.includes("@"));
+    const isValidEmail = !userInfo.email.length ||
+                          (userInfo.email.length && userInfo.email.includes("@"));
 
 
     return(

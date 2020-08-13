@@ -10,7 +10,8 @@ function Hotelpage() {
   const [ hotels, setHotel ] = useState([]);
   
   useEffect((props) => {
-    fetch(`${Apiresource}/data/hotel1pMoc.json`)
+    console.log(props)
+    fetch(`${Apiresource}/hotel/1`)
       .then(res => res.json())
       .then(res => { 
         setHotel(res.data )
