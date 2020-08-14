@@ -25,10 +25,13 @@ const DetailItems = (props) => {
       {hotelData && loading ? (
         hotelData.map((hotelData) => (
           <Link
+            key={hotelData.id}
             to="/hotelpage"
-            onClick={sessionStorage.setItem("pageNumber", hotelData.id)}
+            onClick={() =>
+              sessionStorage.setItem("pageHotelNumber", hotelData.id)
+            }
           >
-            <DetailItem key={hotelData.id}>
+            <DetailItem>
               <Slider {...settings}>
                 {hotelData.image.map((image, index) => (
                   <div key={index} className="hotelContainer">

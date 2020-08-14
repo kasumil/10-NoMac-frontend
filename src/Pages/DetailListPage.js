@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
+import Nav from "../Components/Nav";
 import { detailData } from "../MockData/DetailData";
 import { sampleMap } from "../MockData/SampleMap";
 import { hotelListUrl } from "../Config";
@@ -111,6 +112,7 @@ const DetailPage = () => {
 
   return (
     <>
+      <Nav />
       <CategoryContainer>
         <CenterContainer>
           {detailData.categoryText.map(({ name, index }) => (

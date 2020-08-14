@@ -6,10 +6,12 @@ const BtnMenu = () => {
   return (
     <BtnMenuContainer>
       <BtnMenuWrap>
-        <BtnList>
-          <span>호텔</span>
-          <img alt="hotel" src="/images/hotel.png" />
-        </BtnList>
+        <Link to="/list">
+          <BtnList>
+            <span>호텔</span>
+            <img alt="hotel" src="/images/hotel.png" />
+          </BtnList>
+        </Link>
         <BtnList>
           <span>즐길거리</span>
           <img alt="entertain" src="/images/ticket.png" />

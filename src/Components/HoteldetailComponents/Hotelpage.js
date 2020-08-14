@@ -17,7 +17,7 @@ function Hotelpage() {
       });
   }, []);
   return (
-    <div>
+    <HotelWrap>
       {hotels.map((hotel, index) => (
         <section key={index}>
           <Nav />
@@ -29,9 +29,14 @@ function Hotelpage() {
         </section>
       ))}
       ;
-    </div>
+    </HotelWrap>
   );
 }
+const HotelWrap = styled.div`
+  height: auto;
+  background-color: white;
+`;
+
 const HotelBox = styled.div`
   width: 100%;
   height: 100%;

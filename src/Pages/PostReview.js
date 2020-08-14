@@ -52,7 +52,7 @@ const PostReview = () => {
       body: formdata,
     };
 
-    fetch(`${hotelListUrl}`, requestOptions);
+    fetch(`${hotelListUrl}/review`, requestOptions);
   };
 
   useEffect(() => {
