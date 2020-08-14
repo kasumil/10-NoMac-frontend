@@ -5,7 +5,6 @@ import { hotelListUrl } from "../../Config";
 import { mapApi } from "../../apiKey/mapApi";
 import { detailData } from "../../MockData/DetailData";
 import styled from "styled-components";
-// import MyGreatPlaceWithControllableHover from "./my_great_place_with_controllable_hover.jsx";
 
 const MapAPI = (props) => {
   const [stores, setStores] = useState([]);
@@ -128,6 +127,8 @@ const MapAPI = (props) => {
               <Marker
                 key={index}
                 id={index}
+                icon={{ url: "/images/pin3.png" }}
+                zIndex={index}
                 position={{
                   lat: store.lat,
                   lng: store.lng,
