@@ -22,9 +22,7 @@
 - 라이브러리 기능 사용을 최소화하고, 해당 기능에 대한 구조를 고민 및 직접 구현해본다.
 
 ## 기술 스택 및 구현 기능🛠
-
-### 기술 스택
-
+### 1)기술 스택
 - React.js
 - React Router
 - RESTful API
@@ -34,19 +32,45 @@
 - slick.js
 - multipart/form-data
 
-### 구현 기능
+### 2)구현 기능 상세 설명
+#### [메인 페이지]
+- 메인페이지 브라우저 스크롤 이벤트함수를 작성하여 nav 검색창에 적용
+- 메인페이지 slick.js를 활용한 슬라이드 기능
+- State값을 변경하여 좋아요 on/off 기능
 
-- 로그인, 회원가입
-- Social Login 기능 구현
-- Navigation 기능 구현
-- React Router를 이용한 페이지 이동 기능 구현
-- Image Lazy Loading 구현
-- Browser Scroll 이벤트 구현
-- fetch API를 통해 백엔드와 로그인 통신 구현
-- slick.js를 활용한 슬라이드 구현
-- styled-components 활용
-- filter 함수를 활용하여 Search, Side 메뉴 기능 구현
-- multipart/form-data를 활용한 파일/텍스트 upload 기능 구현
+#### [포스트 리뷰 페이지]
+- fetch post메소드와 multipart-form을 적용하여 서버에 파일/텍스트 업로드 기능구현
+
+#### [리뷰 페이지]
+- fetch get메소드와 multipart-form을 적용하여 서버에 저장된 파일/이미지 내려받아 feed를 추가하는 기능구현
+
+#### [회원가입/로그인 페이지]
+- Fetch 함수를 통한 백엔드 통신연결
+- Name 메소드를 통한 입력값 컨트롤.
+- 입력값의 길이를 비교하여 버튼색깔 다르게 구현 및 조건에 따른 경고창 구현.
+- 구글api, 카카오톡 api를 통한 sns로그인 기능 구현.
+
+#### [호텔 상세 페이지] 
+- 리액트 useState, useEffect를 이용한 state값 통제
+- Slick slider를 통한 이미지 슬라이더 구현.
+- Overflow:hidden을 통해서 내용을 보이는 부분 통제.
+
+#### [호텔 리스트 페이지]
+- 페이지네이션 기능 구현
+- calendar 라이브러리 구현(datepicker)
+- 이미지 슬라이더 기능 구현
+- fetch시 데이터 받아오는동안 loading 이미지 적용
+- 정렬순서, 체크인/아웃 날짜, 부대시설(checkbox)를 통해 3중 필터링 구현
+
+#### [지도 페이지]
+- 구글 지도 Api 사용하여 백엔드로부터 받아온 좌표값을 통해 마커 생성 구현
+- 호텔 평점에 해당하는 필터링 기능 구현
+- marker 클릭시 해당하는 아이템 연결
+
+### 3)협업 툴
+- Git
+- Slack
+- Trello
 
 ## 정리
 
