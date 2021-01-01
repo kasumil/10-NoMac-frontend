@@ -82,5 +82,5 @@
 [![트립어드바이저 클론](http://img.youtube.com/vi/5bPp7WZGTWQ/0.jpg)](https://youtu.be/5bPp7WZGTWQ)
 
 ## 제가 담당한 부분입니다.
-[![Video Label](http://img.youtube.com/vi/nmOXON25EL4/0.jpg)](https://youtu.be/nmOXON25EL4)
-[![Video Label](http://img.youtube.com/vi/lZSW6Cr1rS4/0.jpg)](https://youtu.be/lZSW6Cr1rS4)
+[![로그인](http://img.youtube.com/vi/nmOXON25EL4/0.jpg)](https://youtu.be/nmOXON25EL4)
+[![제품 상세페이지](http://img.youtube.com/vi/lZSW6Cr1rS4/0.jpg)](https://youtu.be/lZSW6Cr1rS4)
