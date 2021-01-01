@@ -77,3 +77,10 @@
 - Scrum 진행 방식을 통해 팀원들과 올바르게 의견을 조율 및 프로젝트 작업을 진행하였고, 팀워크의 중요성을 느낌
 - 함수형 컴포넌트, styled-components, Hooks 등을 활용하여 좀 더 효율적인 코드를 고민하고 작성해볼 수 있었음.
 - 라이브러리 기능을 직접 구현해보며, 라이브러리의 개념과 체계를 확인할 수 있었음.
+
+## 전체영상 
+[![트립어드바이저 클론](http://img.youtube.com/vi/5bPp7WZGTWQ/0.jpg)](https://youtu.be/5bPp7WZGTWQ)
+
+## 제가 담당한 부분입니다.
+[![Video Label](http://img.youtube.com/vi/nmOXON25EL4/0.jpg)](https://youtu.be/nmOXON25EL4)
+[![Video Label](http://img.youtube.com/vi/lZSW6Cr1rS4/0.jpg)](https://youtu.be/lZSW6Cr1rS4)
